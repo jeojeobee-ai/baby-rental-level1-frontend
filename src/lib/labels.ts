@@ -35,6 +35,32 @@ export const STATUS_LABELS: Record<ItemStatus, string> = {
   NEEDS_REPAIR: '수리 필요',
 };
 
+// 대표 사진: public/items/ 의 데모 그림 (직접 제작, 실제 제품 사진 아님).
+// 백엔드 src/items/item-images.ts 의 ITEM_IMAGES 와 같은 목록이어야 합니다.
+export const DEFAULT_IMAGE = '/items/default.svg';
+export const IMAGE_OPTIONS = [
+  ['stroller', '유모차'],
+  ['car-seat', '카시트'],
+  ['carrier', '아기띠·힙시트'],
+  ['crib', '아기침대'],
+  ['mattress', '매트·범퍼침대'],
+  ['sterilizer', '젖병소독기'],
+  ['bath', '아기 욕조'],
+  ['kettle', '분유 포트'],
+  ['food-maker', '이유식 조리기'],
+  ['high-chair', '하이체어'],
+  ['walker', '보행기'],
+  ['activity-center', '쏘서·점퍼루'],
+  ['bouncer', '바운서'],
+  ['play-gym', '아기 체육관'],
+  ['play-house', '러닝홈'],
+].map(([name, label]) => ({ value: `/items/${name}.svg`, label }));
+
+// "브랜드 · 모델명" 한 줄. 둘 다 없으면 빈 글자.
+export function productLine(item: { brand: string | null; modelName: string | null }) {
+  return [item.brand, item.modelName].filter(Boolean).join(' · ');
+}
+
 export function ageRange(min: number, max: number) {
   return `${min}~${max}개월`;
 }

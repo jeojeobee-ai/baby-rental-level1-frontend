@@ -18,6 +18,10 @@ export interface Item {
   maxAgeMonths: number;
   condition: Condition;
   memo: string | null;
+  brand: string | null;
+  modelName: string | null;
+  purchasedAt: string | null;
+  imageUrl: string | null;
   status: ItemStatus;
   lastSanitizedAt: string | null;
 }

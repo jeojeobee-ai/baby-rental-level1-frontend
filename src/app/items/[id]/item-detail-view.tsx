@@ -10,8 +10,10 @@ import {
   METHOD_LABELS,
   RESULT_LABELS,
   ageRange,
+  productLine,
   today,
 } from '@/lib/labels';
+import { ItemImage } from '@/components/item-image';
 import type { Rental } from '@/lib/types';
 import { useForm } from '@/lib/use-form';
 import { useItem } from '@/lib/use-item';
@@ -38,18 +40,32 @@ export default function ItemDetailView() {
       <p className="breadcrumb">
         <Link href="/items">용품 목록</Link> / {item.code}
       </p>
-      <div className="page-head">
-        <div>
-          <h1>
-            <span className="mono muted">{item.code}</span> {item.name}
-          </h1>
+      <div className="detail-hero">
+        <ItemImage src={item.imageUrl} alt={`${item.name} 대표 사진 (데모 그림)`} size="large" />
+        <div className="detail-summary">
+          <p className="mono muted">{item.code}</p>
+          <h1>{item.name}</h1>
+          <p className="sub-text">{productLine(item) || '제품 정보 없음'}</p>
           <p className="status-line">
             <StatusBadge status={item.status} /> <span className="muted">{STATUS_HELP[item.status]}</span>
           </p>
+          <p className="demo-note">사진은 데모용 그림이며, 브랜드·모델명은 가상 데이터예요.</p>
         </div>
       </div>
 
       <dl className="info-grid">
+        <div>
+          <dt>브랜드</dt>
+          <dd>{item.brand ?? '-'}</dd>
+        </div>
+        <div>
+          <dt>모델명</dt>
+          <dd>{item.modelName ?? '-'}</dd>
+        </div>
+        <div>
+          <dt>구매일</dt>
+          <dd>{item.purchasedAt ?? '-'}</dd>
+        </div>
         <div>
           <dt>분류</dt>
           <dd>{CATEGORY_LABELS[item.category]}</dd>

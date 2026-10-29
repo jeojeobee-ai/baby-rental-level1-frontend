@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
+import { ItemImage } from '@/components/item-image';
 import { ErrorBox, Loading, StatusBadge } from '@/components/ui';
 import { api } from '@/lib/api';
-import { CATEGORY_LABELS, CONDITION_LABELS, ageRange } from '@/lib/labels';
+import { CATEGORY_LABELS, CONDITION_LABELS, ageRange, productLine } from '@/lib/labels';
 import type { Item } from '@/lib/types';
 
 // S1. 용품 목록
@@ -49,6 +50,9 @@ export default function ItemsPage() {
         <table className="table table-clickable">
           <thead>
             <tr>
+              <th className="col-photo">
+                <span className="sr-only">사진</span>
+              </th>
               <th>관리 번호</th>
               <th>이름</th>
               <th>분류</th>
@@ -61,12 +65,20 @@ export default function ItemsPage() {
           <tbody>
             {items.map((item) => (
               <tr key={item.id} onClick={() => router.push(`/items/${item.id}`)}>
+                <td className="col-photo">
+                  <ItemImage src={item.imageUrl} alt={`${item.name} 대표 사진 (데모 그림)`} />
+                </td>
                 <td data-label="관리 번호" className="mono">
                   <Link href={`/items/${item.id}`} onClick={(e) => e.stopPropagation()}>
                     {item.code}
                   </Link>
                 </td>
-                <td data-label="이름" className="strong">{item.name}</td>
+                <td data-label="이름" className="name-cell">
+                  <span>
+                    <span className="strong">{item.name}</span>
+                    {productLine(item) && <span className="sub-text">{productLine(item)}</span>}
+                  </span>
+                </td>
                 <td data-label="분류">{CATEGORY_LABELS[item.category]}</td>
                 <td data-label="사용 월령">{ageRange(item.minAgeMonths, item.maxAgeMonths)}</td>
                 <td data-label="용품 상태">{CONDITION_LABELS[item.condition]}</td>

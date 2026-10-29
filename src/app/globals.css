@@ -62,7 +62,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
@@ -285,14 +285,14 @@ main.container {
 
 .table th,
 .table td {
-  padding: 10px 12px;
+  padding: 14px 16px;
   text-align: left;
   border-bottom: 1px solid var(--border);
   vertical-align: middle;
 }
 
 .table th {
-  font-size: 0.85rem;
+  font-size: 14px;
   color: var(--muted);
   font-weight: 600;
   background: var(--neutral-soft);
@@ -369,7 +369,7 @@ main.container {
 }
 
 .info-grid dt {
-  font-size: 0.85rem;
+  font-size: 14px;
   color: var(--muted);
 }
 
@@ -572,7 +572,7 @@ main.container {
 
 .item-image-large {
   width: 100%;
-  max-width: 360px;
+  max-width: 260px;
 }
 
 /* 목록: 사진 칸과 이름 아래 보조 정보 */
@@ -595,7 +595,7 @@ main.container {
 /* 상세: 사진 + 요약 */
 .detail-hero {
   display: grid;
-  grid-template-columns: minmax(200px, 360px) 1fr;
+  grid-template-columns: minmax(180px, 260px) 1fr;
   gap: var(--space-3);
   align-items: start;
   padding: var(--space-3);
@@ -668,4 +668,79 @@ main.container {
   .info-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+/* ---------- 최종 다듬기: 상세 상태 강조, 표·보조 글자 크기 ---------- */
+.table td {
+  font-size: 15px;
+}
+
+.sub-text {
+  font-size: 14px;
+}
+
+.demo-note {
+  font-size: 13px;
+}
+
+.detail-hero {
+  grid-template-columns: minmax(180px, 260px) minmax(0, 1fr);
+  align-items: center;
+}
+
+/* 지금 상태: 크게, 상태 색 테두리로 한눈에 */
+.status-panel {
+  margin: var(--space-2) 0 var(--space-1);
+  padding: var(--space-2);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--muted);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+
+.status-panel > p {
+  margin: 0;
+}
+
+.status-panel-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.status-panel .status-line {
+  margin: 0 0 var(--space-1) !important;
+}
+
+.status-panel .badge {
+  height: 32px;
+  padding: 0 14px;
+  font-size: 16px;
+}
+
+.status-panel .badge::before {
+  width: 8px;
+  height: 8px;
+}
+
+.status-panel-AVAILABLE { border-left-color: var(--success); }
+.status-panel-RENTED { border-left-color: var(--info); }
+.status-panel-AWAITING_SANITIZATION { border-left-color: var(--warn); }
+.status-panel-NEEDS_RESANITIZATION,
+.status-panel-NEEDS_REPAIR { border-left-color: var(--danger); }
+
+.due-date {
+  margin-bottom: 4px !important;
+  font-size: 16px;
+  color: var(--info);
+}
+
+.due-date strong {
+  font-size: 18px;
+}
+
+.due-date-over {
+  color: var(--danger);
 }

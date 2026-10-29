@@ -35,6 +35,11 @@ export default function ItemDetailView() {
   if (state.kind === 'error') return <ErrorBox message={state.message} onRetry={reload} />;
 
   const { item } = state;
+  // 대여 중이면 반납 예정일과 남은 날(또는 지난 날)을 함께 보여 줍니다.
+  const activeRental = item.rentals.find((rental) => !rental.returnedAt);
+  const daysLeft = activeRental
+    ? Math.round((Date.parse(activeRental.dueDate) - Date.parse(today())) / 86_400_000)
+    : null;
   return (
     <>
       <p className="breadcrumb">
@@ -46,9 +51,19 @@ export default function ItemDetailView() {
           <p className="mono muted">{item.code}</p>
           <h1>{item.name}</h1>
           <p className="sub-text">{productLine(item) || '제품 정보 없음'}</p>
-          <p className="status-line">
-            <StatusBadge status={item.status} /> <span className="muted">{STATUS_HELP[item.status]}</span>
-          </p>
+          <div className={`status-panel status-panel-${item.status}`}>
+            <span className="status-panel-label">지금 상태</span>
+            <p className="status-line">
+              <StatusBadge status={item.status} />
+            </p>
+            {activeRental && daysLeft !== null && (
+              <p className={`due-date${daysLeft < 0 ? ' due-date-over' : ''}`}>
+                반납 예정일 <strong>{activeRental.dueDate}</strong>
+                <span>{daysLeft > 0 ? ` (D-${daysLeft})` : daysLeft === 0 ? ' (오늘)' : ` (${-daysLeft}일 지남)`}</span>
+              </p>
+            )}
+            <p className="muted">{STATUS_HELP[item.status]}</p>
+          </div>
           <p className="demo-note">사진은 데모용 그림이며, 브랜드·모델명은 가상 데이터예요.</p>
         </div>
       </div>

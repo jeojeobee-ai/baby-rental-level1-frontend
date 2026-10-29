@@ -5,7 +5,8 @@
 기획 내용은 [기획서.md](./기획서.md)에 있고, 모든 데이터는 가상입니다.
 
 - 백엔드 저장소: [baby-rental-level1-backend](https://github.com/jeojeobee-ai/baby-rental-level1-backend)
-- 배포 주소: (배포 후 기입)
+- 배포 주소: https://baby-rental-level1-frontend.vercel.app
+- 백엔드 API: https://baby-rental-api.onrender.com (상태 확인: [/health](https://baby-rental-api.onrender.com/health))
 
 ## 화면
 
